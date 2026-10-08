@@ -106,10 +106,10 @@
             ⚡
           </div>
           <div>
-            <div class="text-amber-400 font-extrabold tracking-wide text-sm sm:text-base uppercase flex items-center gap-2">
+            <div id="pp-banner-title" class="text-amber-400 font-extrabold tracking-wide text-sm sm:text-base uppercase flex items-center gap-2">
               POWERPLAY ACTIVE (Overs 1 & 2)
             </div>
-            <p class="text-xs text-amber-200/90">
+            <p id="pp-banner-desc" class="text-xs text-amber-200/90">
               ⚡ All runs & extras are <strong class="text-amber-300">DOUBLED (2x)</strong> • Wickets deduct <strong class="text-red-400">-3 RUNS</strong> from overall score!
             </p>
           </div>
@@ -147,7 +147,7 @@
             <div class="text-right border-l border-slate-800 pl-6">
               <span class="text-[10px] sm:text-xs text-slate-400 block font-bold uppercase">OVERS</span>
               <div class="text-2xl sm:text-3xl font-extrabold text-slate-200 font-mono">
-                <span id="score-overs">0.0</span><span class="text-slate-600 text-lg"> / 6</span>
+                <span id="score-overs">0.0</span><span id="max-overs-label" class="text-slate-600 text-lg"> / 6</span>
               </div>
             </div>
             <div id="target-container" class="hidden text-right border-l border-slate-800 pl-6">
@@ -285,8 +285,9 @@
           <div class="p-3 bg-slate-950/80 rounded-2xl border border-slate-800 text-[11px] text-slate-400 space-y-1">
             <div class="font-bold text-amber-400 flex items-center gap-1">⚡ APL Tournament Rules:</div>
             <div>• <strong>No LBW / No Leg Byes:</strong> Tennis ball rule active.</div>
-            <div>• <strong>8 Player Team:</strong> Max 7 wickets before All Out.</div>
+            <div>• <strong>8 Player Team:</strong> Max 7 wickets (All Out).</div>
             <div>• <strong>Powerplay (Overs 1-2):</strong> 2x runs/extras + 3 run deduction per dismissal.</div>
+            <div>• <strong>Super Over:</strong> Standard 1x scoring, max 2 wickets.</div>
           </div>
         </div>
       </div>
@@ -373,7 +374,7 @@
 
           <div class="bg-slate-900/90 rounded-3xl border border-slate-800 p-5 shadow-xl space-y-4">
             <h3 class="text-base font-extrabold text-white flex items-center justify-between">
-              <span class="flex items-center gap-2"><i data-lucide="calendar" class="w-5 h-5 text-amber-400"></i> APL 2026 Schedule & Fixtures</span>
+              <span class="flex items-center gap-2"><i data-lucide="calendar" class="w-5 h-5 text-amber-400"></i> APL 2026 Schedule & Fixtures (6 Group + Finale)</span>
             </h3>
             <div id="fixtures-list" class="space-y-3">
               <!-- JS Rendered -->
@@ -397,15 +398,15 @@
 
   </main>
 
-  <!-- MODAL 0: PRE-MATCH TOSS & PLAYING 8 SELECTION -->
+  <!-- MODAL 0: PRE-MATCH TOSS, PLAYING 8 & OPENERS SELECTION -->
   <div id="modal-match-setup" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-slate-900 rounded-3xl border border-amber-500/30 p-6 max-w-2xl w-full space-y-5 shadow-2xl my-8">
       <div class="border-b border-slate-800 pb-4 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <img src="Aarohi Premier League 2026 Crest.png" alt="APL 2026 Logo" class="w-10 h-10 object-contain rounded-lg bg-slate-950 p-1 border border-amber-500/30" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1e293b/facc15?text=APL';" />
           <div>
-            <h3 class="text-xl font-black text-amber-400 uppercase">Pre-Match Toss & Playing 8 Setup</h3>
-            <p class="text-xs text-slate-400">Select Toss Result and pick Playing 8 for each squad</p>
+            <h3 class="text-xl font-black text-amber-400 uppercase">Pre-Match Setup</h3>
+            <p class="text-xs text-slate-400">Select Toss, Playing 8, Opening Batsmen & Bowler</p>
           </div>
         </div>
       </div>
@@ -413,13 +414,13 @@
       <!-- Toss Selection Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-950/80 p-4 rounded-2xl border border-slate-800">
         <div>
-          <label class="text-xs font-bold text-slate-300 block mb-1.5">1. Who Won the Toss?</label>
+          <label class="text-xs font-bold text-slate-300 block mb-1.5">1. Toss Winner</label>
           <select id="toss-winner-select" onchange="updateTossSummary()" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm text-white font-semibold focus:outline-none focus:border-amber-500">
             <!-- Populated via JS -->
           </select>
         </div>
         <div>
-          <label class="text-xs font-bold text-slate-300 block mb-1.5">2. Toss Decision</label>
+          <label class="text-xs font-bold text-slate-300 block mb-1.5">2. Decision</label>
           <select id="toss-decision-select" onchange="updateTossSummary()" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm text-white font-semibold focus:outline-none focus:border-amber-500">
             <option value="BAT">Elected to BAT first</option>
             <option value="BOWLE">Elected to BOWL first</option>
@@ -438,7 +439,7 @@
             <h4 id="setup-team-a-name" class="font-bold text-sm text-white">Team A Squad</h4>
             <span id="team-a-count" class="text-xs font-mono font-bold text-amber-400">0/8 Selected</span>
           </div>
-          <div id="team-a-squad-checkboxes" class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+          <div id="team-a-squad-checkboxes" class="space-y-1.5 max-h-40 overflow-y-auto pr-1">
             <!-- Checkboxes via JS -->
           </div>
         </div>
@@ -449,15 +450,34 @@
             <h4 id="setup-team-b-name" class="font-bold text-sm text-white">Team B Squad</h4>
             <span id="team-b-count" class="text-xs font-mono font-bold text-amber-400">0/8 Selected</span>
           </div>
-          <div id="team-b-squad-checkboxes" class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+          <div id="team-b-squad-checkboxes" class="space-y-1.5 max-h-40 overflow-y-auto pr-1">
             <!-- Checkboxes via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Opening Players Selection Grid -->
+      <div class="bg-slate-950/80 p-4 rounded-2xl border border-amber-500/30 space-y-3">
+        <h4 class="text-xs font-bold text-amber-400 uppercase">3. Select Opening Lineup (1st Innings)</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="text-[11px] font-semibold text-slate-400 block mb-1">Striker (Batter 1):</label>
+            <select id="select-striker-input" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-amber-500 font-semibold"></select>
+          </div>
+          <div>
+            <label class="text-[11px] font-semibold text-slate-400 block mb-1">Non-Striker (Batter 2):</label>
+            <select id="select-nonstriker-input" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-amber-500 font-semibold"></select>
+          </div>
+          <div>
+            <label class="text-[11px] font-semibold text-slate-400 block mb-1">Opening Bowler:</label>
+            <select id="select-opener-bowler-input" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-amber-500 font-semibold"></select>
           </div>
         </div>
       </div>
 
       <div class="flex justify-end gap-3 pt-2">
         <button onclick="confirmMatchSetup()" class="w-full py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm rounded-xl shadow-lg transition uppercase tracking-wider">
-          Confirm Toss & Start Match
+          Confirm Lineups & Start Match
         </button>
       </div>
     </div>
@@ -549,7 +569,7 @@
           <button onclick="confirmExtra(3)" class="p-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl text-sm border border-slate-700">+3</button>
         </div>
         <div class="text-[11px] text-slate-500 italic">
-          * Standard Wide/No Ball gives +1 penalty run. In Powerplay (Overs 1-2), total extra runs are doubled!
+          * Standard Wide/No Ball gives +1 penalty run. In Group Stage Powerplay (Overs 1-2), total extra runs are doubled!
         </div>
       </div>
     </div>
@@ -597,8 +617,43 @@
     </div>
   </div>
 
+  <!-- MODAL 6: SUPER OVER SETUP MODAL -->
+  <div id="modal-super-over" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-slate-900 rounded-3xl border border-amber-500/50 p-6 max-w-md w-full space-y-4 shadow-2xl">
+      <div class="border-b border-slate-800 pb-3 text-center">
+        <h3 class="text-xl font-black text-amber-400 uppercase flex items-center justify-center gap-2">
+          ⚡ SUPER OVER TIEBREAKER
+        </h3>
+        <p class="text-xs text-slate-400 mt-1">1 Over • Max 2 Wickets • Standard 1x Scoring</p>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="font-semibold text-slate-300 block mb-1">1. Batting Team First:</label>
+          <select id="super-bat-team" onchange="updateSuperOverPlayerSelects()" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white font-bold"></select>
+        </div>
+        <div>
+          <label class="font-semibold text-slate-300 block mb-1">2. Striker (Batter 1):</label>
+          <select id="super-striker" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white font-medium"></select>
+        </div>
+        <div>
+          <label class="font-semibold text-slate-300 block mb-1">3. Non-Striker (Batter 2):</label>
+          <select id="super-nonstriker" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white font-medium"></select>
+        </div>
+        <div>
+          <label class="font-semibold text-slate-300 block mb-1">4. Opening Bowler:</label>
+          <select id="super-bowler" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white font-medium"></select>
+        </div>
+      </div>
+
+      <button onclick="startSuperOver()" class="w-full py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm rounded-xl shadow-lg transition uppercase tracking-wider">
+        Start Super Over
+      </button>
+    </div>
+  </div>
+
   <script>
-    const STORAGE_KEY = 'APL_2026_STATE_V1';
+    const STORAGE_KEY = 'APL_2026_STATE_V2';
 
     let tournament = {
       teams: [],
@@ -653,7 +708,7 @@
       }
     }
 
-    function createNewInnings(battingTeamId, bowlingTeamId, playing8Batters, playing8Bowlers) {
+    function createNewInnings(battingTeamId, bowlingTeamId, playing8Batters, playing8Bowlers, openerStriker, openerNonStriker, openerBowler, maxBalls = 36, maxWickets = 7) {
       return {
         battingTeamId,
         bowlingTeamId,
@@ -664,9 +719,11 @@
         overs: 0,
         legalBalls: 0,
         extras: 0,
-        striker: playing8Batters[0] || 'Batter 1',
-        nonStriker: playing8Batters[1] || 'Batter 2',
-        currentBowler: playing8Bowlers[0] || 'Bowler 1',
+        maxBalls,
+        maxWickets,
+        striker: openerStriker || playing8Batters[0] || 'Batter 1',
+        nonStriker: openerNonStriker || playing8Batters[1] || 'Batter 2',
+        currentBowler: openerBowler || playing8Bowlers[0] || 'Bowler 1',
         ballsHistory: [],
         batterStats: playing8Batters.map(name => ({
           name,
@@ -693,14 +750,15 @@
 
     function isPowerplayActive() {
       const inn = getCurrentInnings();
-      return inn && inn.legalBalls < 12; // Overs 1 and 2
+      // Powerplay 2x runs/penalty strictly only in group stage / normal innings overs 1 & 2
+      return inn && !match.isSuperOver && inn.legalBalls < 12;
     }
 
     function recordBall(runsScored, options = {}) {
       const inn = getCurrentInnings();
       if (!inn) return;
 
-      if (inn.legalBalls >= 36 || inn.wickets >= (inn.playing8Batters.length - 1)) {
+      if (inn.legalBalls >= inn.maxBalls || inn.wickets >= inn.maxWickets) {
         alert('Innings completed!');
         return;
       }
@@ -713,13 +771,13 @@
       const dismissedPlayer = options.dismissedPlayer || inn.striker;
       const nextPlayer = options.nextPlayer || null;
 
-      // Custom Rule 1: Powerplay 2x Multiplier
+      // Custom Rule 1: Powerplay 2x Multiplier (ONLY in group stage overs 1 & 2)
       const multiplier = inPP ? 2 : 1;
       let addedRuns = runsScored * multiplier;
       let extraRunsAdded = 0;
 
       if (extraType === 'wide' || extraType === 'noball') {
-        extraRunsAdded = 1 * multiplier; // Penalty run doubled in PP
+        extraRunsAdded = 1 * multiplier;
         addedRuns += extraRunsAdded;
       }
 
@@ -771,7 +829,7 @@
           outStat.dismissal = dismissalType;
         }
 
-        if (nextPlayer) {
+        if (nextPlayer && inn.wickets < inn.maxWickets) {
           if (dismissedPlayer === inn.striker) inn.striker = nextPlayer;
           else inn.nonStriker = nextPlayer;
         }
@@ -804,7 +862,7 @@
       // End of over check
       if (isLegal && inn.legalBalls % 6 === 0) {
         swapStrike();
-        if (inn.legalBalls < 36 && inn.wickets < (inn.playing8Batters.length - 1)) {
+        if (inn.legalBalls < inn.maxBalls && inn.wickets < inn.maxWickets) {
           openChangeBowlerModal();
         }
       }
@@ -899,8 +957,12 @@
       const batTeam = tournament.teams.find(t => t.id === inn.battingTeamId) || { name: 'Team A' };
       const bowlTeam = tournament.teams.find(t => t.id === inn.bowlingTeamId) || { name: 'Team B' };
 
-      document.getElementById('current-match-label').innerText = `Match #${match.id.replace('match_', '')}`;
-      document.getElementById('current-innings-label').innerText = match.currentInningsIndex === 0 ? '1st Innings' : '2nd Innings (Chasing)';
+      document.getElementById('current-match-label').innerText = `${match.id.toUpperCase()}`;
+      
+      let innTitle = match.currentInningsIndex === 0 ? '1st Innings' : '2nd Innings (Chasing)';
+      if (match.isSuperOver) innTitle = match.currentInningsIndex === 0 ? 'Super Over (1st)' : 'Super Over (2nd)';
+      document.getElementById('current-innings-label').innerText = innTitle;
+
       document.getElementById('batting-team-name').childNodes[0].nodeValue = batTeam.name + ' ';
       document.getElementById('bowling-team-name').innerText = bowlTeam.name;
 
@@ -909,10 +971,20 @@
       document.getElementById('score-runs').innerText = inn.runs;
       document.getElementById('score-wickets').innerText = inn.wickets;
       document.getElementById('score-overs').innerText = inn.overs.toFixed(1);
+      document.getElementById('max-overs-label').innerText = match.isSuperOver ? ' / 1' : ' / 6';
 
       const ppBanner = document.getElementById('powerplay-indicator');
-      if (isPowerplayActive()) ppBanner.classList.remove('hidden');
-      else ppBanner.classList.add('hidden');
+      if (match.isSuperOver) {
+        ppBanner.classList.remove('hidden');
+        document.getElementById('pp-banner-title').innerText = "⚡ SUPER OVER ACTIVE";
+        document.getElementById('pp-banner-desc').innerText = "1 Over Tiebreaker • Max 2 Wickets • Standard 1x Scoring (No 2x doubling)";
+      } else if (isPowerplayActive()) {
+        ppBanner.classList.remove('hidden');
+        document.getElementById('pp-banner-title').innerText = "POWERPLAY ACTIVE (Overs 1 & 2)";
+        document.getElementById('pp-banner-desc').innerHTML = '⚡ All runs & extras are <strong class="text-amber-300">DOUBLED (2x)</strong> • Wickets deduct <strong class="text-red-400">-3 RUNS</strong> from overall score!';
+      } else {
+        ppBanner.classList.add('hidden');
+      }
 
       const targetBox = document.getElementById('target-container');
       if (match.currentInningsIndex === 1) {
@@ -963,7 +1035,8 @@
       }
 
       const legalBallsSoFar = inn.legalBalls;
-      const currentOverIndex = Math.floor((legalBallsSoFar === 36 ? 35 : legalBallsSoFar) / 6);
+      const maxL = inn.maxBalls;
+      const currentOverIndex = Math.floor((legalBallsSoFar === maxL ? maxL - 1 : legalBallsSoFar) / 6);
       
       let legalCount = 0;
       const thisOverBalls = [];
@@ -1013,9 +1086,9 @@
         const item = document.createElement('div');
         item.className = "flex items-center justify-between p-2.5 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs";
 
-        let desc = `${b.strikerBefore} scored ${b.addedRuns} runs off ${b.bowlerBefore}`;
+        let desc = `${b.strikerBefore} scored ${b.addedRuns} runs off${b.bowlerBefore}`;
         if (b.extraType) desc = `${b.extraType.toUpperCase()} by ${b.bowlerBefore} (+${b.addedRuns} runs)`;
-        if (b.isWicket) desc = `💥 WICKET! ${b.dismissedPlayer} OUT (${b.dismissalType}) off ${b.bowlerBefore}`;
+        if (b.isWicket) desc = `💥 WICKET! ${b.dismissedPlayer} OUT (${b.dismissalType}) off${b.bowlerBefore}`;
 
         const tag = b.isPP ? `<span class="text-[10px] bg-amber-500/20 text-amber-400 border border-amber-500/30 px-1.5 py-0.5 rounded font-bold">2x PP</span>` : ``;
 
@@ -1079,6 +1152,8 @@
 
       document.getElementById('team-a-count').innerText = `${selectedA.length}/8 Selected`;
       document.getElementById('team-b-count').innerText = `${selectedB.length}/8 Selected`;
+
+      populatePreMatchOpenerDropdowns();
     }
 
     function updateTossSummary() {
@@ -1100,7 +1175,36 @@
       }
 
       document.getElementById('toss-summary-preview').innerText = 
-        `🪙 ${winnerTeam.name} won the toss and elected to ${decision === 'BAT' ? 'BAT' : 'BOWL'} first. (${batFirstTeam.name} will Bat 1st)`;
+        `🪙 ${winnerTeam.name} won toss and elected to ${decision === 'BAT' ? 'BAT' : 'BOWL'} first. (${batFirstTeam.name} Batting First)`;
+
+      populatePreMatchOpenerDropdowns();
+    }
+
+    function populatePreMatchOpenerDropdowns() {
+      const fix = tournament.fixtures.find(f => f.id === activeSetupFixtureId);
+      if (!fix) return;
+
+      const tossWinnerId = document.getElementById('toss-winner-select').value;
+      const decision = document.getElementById('toss-decision-select').value;
+
+      const selectedA = Array.from(document.querySelectorAll('input[name="teamA_p8"]:checked')).map(el => el.value);
+      const selectedB = Array.from(document.querySelectorAll('input[name="teamB_p8"]:checked')).map(el => el.value);
+
+      let batPlaying8 = selectedA;
+      let bowlPlaying8 = selectedB;
+
+      if ((tossWinnerId === fix.teamA && decision === 'BOWLE') || (tossWinnerId === fix.teamB && decision === 'BAT')) {
+        batPlaying8 = selectedB;
+        bowlPlaying8 = selectedA;
+      }
+
+      const strSel = document.getElementById('select-striker-input');
+      const nonStrSel = document.getElementById('select-nonstriker-input');
+      const bowlSel = document.getElementById('select-opener-bowler-input');
+
+      strSel.innerHTML = batPlaying8.map((p, i) => `<option value="${p}" ${i===0?'selected':''}>${p}</option>`).join('');
+      nonStrSel.innerHTML = batPlaying8.map((p, i) => `<option value="${p}" ${i===1?'selected':''}>${p}</option>`).join('');
+      bowlSel.innerHTML = bowlPlaying8.map((p, i) => `<option value="${p}" ${i===0?'selected':''}>${p}</option>`).join('');
     }
 
     function confirmMatchSetup() {
@@ -1109,6 +1213,15 @@
 
       if (selectedA.length !== 8 || selectedB.length !== 8) {
         alert('You MUST select exactly 8 players for both teams before starting the match!');
+        return;
+      }
+
+      const striker = document.getElementById('select-striker-input').value;
+      const nonStriker = document.getElementById('select-nonstriker-input').value;
+      const openerBowler = document.getElementById('select-opener-bowler-input').value;
+
+      if (striker === nonStriker) {
+        alert('Striker and Non-Striker must be two different players!');
         return;
       }
 
@@ -1142,9 +1255,10 @@
         teamB: fix.teamB,
         tossSummary,
         currentInningsIndex: 0,
+        isSuperOver: false,
         innings: [
-          createNewInnings(batTeamId, bowlTeamId, batPlaying8, bowlPlaying8),
-          createNewInnings(bowlTeamId, batTeamId, bowlPlaying8, batPlaying8)
+          createNewInnings(batTeamId, bowlTeamId, batPlaying8, bowlPlaying8, striker, nonStriker, openerBowler, 36, 7),
+          createNewInnings(bowlTeamId, batTeamId, bowlPlaying8, batPlaying8, null, null, null, 36, 7)
         ],
         isFreeHit: false,
         isCompleted: false
@@ -1201,7 +1315,7 @@
         return p !== inn.striker && p !== inn.nonStriker && (!stat || !stat.isOut);
       });
 
-      if (available.length === 0) {
+      if (available.length === 0 || inn.wickets >= (inn.maxWickets - 1)) {
         nextSelect.innerHTML = `<option value="">All Out / Last Batter</option>`;
       } else {
         available.forEach(p => {
@@ -1253,8 +1367,8 @@
 
     function checkInningsOrMatchCompletion() {
       const inn = getCurrentInnings();
-      const isAllOut = inn.wickets >= (inn.playing8Batters.length - 1);
-      const isOversFinished = inn.legalBalls >= 36;
+      const isAllOut = inn.wickets >= inn.maxWickets;
+      const isOversFinished = inn.legalBalls >= inn.maxBalls;
 
       let targetChased = false;
       if (match.currentInningsIndex === 1) {
@@ -1264,23 +1378,30 @@
 
       if (isAllOut || isOversFinished || targetChased) {
         if (match.currentInningsIndex === 0) {
-          alert(`1st Innings Completed! ${tournament.teams.find(t=>t.id===inn.battingTeamId).name} scored ${inn.runs}/${inn.wickets} in 6 Overs. Target: ${inn.runs + 1}`);
+          alert(`1st Innings Completed! ${tournament.teams.find(t=>t.id===inn.battingTeamId).name} scored ${inn.runs}/${inn.wickets}. Target: ${inn.runs + 1}`);
           match.currentInningsIndex = 1;
           openChangeBowlerModal();
         } else {
-          match.isCompleted = true;
+          // Check for Tie
           const inn1 = match.innings[0];
           const inn2 = match.innings[1];
           const team1Name = tournament.teams.find(t=>t.id===inn1.battingTeamId).name;
           const team2Name = tournament.teams.find(t=>t.id===inn2.battingTeamId).name;
 
+          if (inn1.runs === inn2.runs && !match.isSuperOver) {
+            alert(`🤝 MATCH TIED (${inn1.runs} - ${inn2.runs})! Moving to SUPER OVER tiebreaker.`);
+            triggerSuperOverModal();
+            return;
+          }
+
+          match.isCompleted = true;
           let winnerResult = '';
           if (inn2.runs > inn1.runs) {
-            winnerResult = `${team2Name} won by ${8 - 1 - inn2.wickets} wickets!`;
+            winnerResult = `${team2Name} won by ${inn2.maxWickets - inn2.wickets} wickets!`;
           } else if (inn1.runs > inn2.runs) {
             winnerResult = `${team1Name} won by ${inn1.runs - inn2.runs} runs!`;
           } else {
-            winnerResult = `Match Tied!`;
+            winnerResult = `Match Tied in Super Over!`;
           }
 
           alert(`🏆 Match Finished! ${winnerResult}`);
@@ -1291,6 +1412,71 @@
           }
         }
       }
+    }
+
+    function triggerSuperOverModal() {
+      const inn1 = match.innings[0];
+      const inn2 = match.innings[1];
+      const team1 = tournament.teams.find(t=>t.id===inn1.battingTeamId);
+      const team2 = tournament.teams.find(t=>t.id===inn2.battingTeamId);
+
+      const batTeamSel = document.getElementById('super-bat-team');
+      batTeamSel.innerHTML = `
+        <option value="${team2.id}">${team2.name} (Chased 2nd in main match)</option>
+        <option value="${team1.id}">${team1.name} (Batted 1st in main match)</option>
+      `;
+
+      updateSuperOverPlayerSelects();
+      document.getElementById('modal-super-over').classList.remove('hidden');
+    }
+
+    function updateSuperOverPlayerSelects() {
+      const batTeamId = document.getElementById('super-bat-team').value;
+      const inn1 = match.innings[0];
+      const inn2 = match.innings[1];
+
+      let batPlaying8 = inn1.battingTeamId === batTeamId ? inn1.playing8Batters : inn2.playing8Batters;
+      let bowlPlaying8 = inn1.battingTeamId === batTeamId ? inn1.playing8Bowlers : inn2.playing8Bowlers;
+
+      const strSel = document.getElementById('super-striker');
+      const nonStrSel = document.getElementById('super-nonstriker');
+      const bowlSel = document.getElementById('super-bowler');
+
+      strSel.innerHTML = batPlaying8.map((p, i) => `<option value="${p}" ${i===0?'selected':''}>${p}</option>`).join('');
+      nonStrSel.innerHTML = batPlaying8.map((p, i) => `<option value="${p}" ${i===1?'selected':''}>${p}</option>`).join('');
+      bowlSel.innerHTML = bowlPlaying8.map((p, i) => `<option value="${p}" ${i===0?'selected':''}>${p}</option>`).join('');
+    }
+
+    function startSuperOver() {
+      const batTeamId = document.getElementById('super-bat-team').value;
+      const striker = document.getElementById('super-striker').value;
+      const nonStriker = document.getElementById('super-nonstriker').value;
+      const bowler = document.getElementById('super-bowler').value;
+
+      if (striker === nonStriker) {
+        alert('Super Over Striker and Non-Striker must be different!');
+        return;
+      }
+
+      const inn1 = match.innings[0];
+      const inn2 = match.innings[1];
+      const bowlTeamId = inn1.battingTeamId === batTeamId ? inn2.battingTeamId : inn1.battingTeamId;
+
+      let batPlaying8 = inn1.battingTeamId === batTeamId ? inn1.playing8Batters : inn2.playing8Batters;
+      let bowlPlaying8 = inn1.battingTeamId === batTeamId ? inn1.playing8Bowlers : inn2.playing8Bowlers;
+
+      match.isSuperOver = true;
+      match.currentInningsIndex = 0;
+      match.tossSummary += " • Super Over Active";
+
+      match.innings = [
+        createNewInnings(batTeamId, bowlTeamId, batPlaying8, bowlPlaying8, striker, nonStriker, bowler, 6, 2),
+        createNewInnings(bowlTeamId, batTeamId, bowlPlaying8, batPlaying8, null, null, null, 6, 2)
+      ];
+
+      document.getElementById('modal-super-over').classList.add('hidden');
+      saveStateToStorage();
+      updateUI();
     }
 
     function renderScorecard() {
@@ -1405,7 +1591,7 @@
         let totalRunsConceded = 0, totalOversBowled = 0;
 
         tournament.fixtures.forEach(fix => {
-          if (fix.status === 'COMPLETED' && (fix.teamA === team.id || fix.teamB === team.id)) {
+          if (fix.status === 'COMPLETED' && (fix.teamA === team.id || fix.teamB === team.id) && fix.id !== 'match_7_finale') {
             played++;
             const isTeamA = fix.teamA === team.id;
             const myInn = isTeamA ? match.innings[0] : match.innings[1];
@@ -1428,7 +1614,7 @@
           nrr = ((totalRunsScored / totalOversFaced) - (totalRunsConceded / totalOversBowled)).toFixed(3);
         }
 
-        return { teamName: team.name, played, won, lost, pts, nrr };
+        return { id: team.id, teamName: team.name, played, won, lost, pts, nrr };
       });
 
       stats.sort((a, b) => b.pts - a.pts || b.nrr - a.nrr);
@@ -1446,6 +1632,24 @@
         `;
         tbody.appendChild(row);
       });
+
+      // Check if 6 group matches are done to unlock Finale
+      const completedGroupCount = tournament.fixtures.filter(f => f.status === 'COMPLETED' && f.id !== 'match_7_finale').length;
+      if (completedGroupCount === 6 && !tournament.fixtures.find(f => f.id === 'match_7_finale')) {
+        const top1 = stats[0];
+        const top2 = stats[1];
+
+        if (top1 && top2) {
+          tournament.fixtures.push({
+            id: 'match_7_finale',
+            teamA: top1.id,
+            teamB: top2.id,
+            status: 'UPCOMING',
+            result: ''
+          });
+          saveStateToStorage();
+        }
+      }
     }
 
     function renderFixtures() {
@@ -1453,7 +1657,7 @@
       container.innerHTML = '';
 
       if (tournament.fixtures.length === 0) {
-        container.innerHTML = `<p class="text-xs text-slate-500 italic text-center py-4">No fixtures generated yet. Click "Auto Fixtures" after adding teams!</p>`;
+        container.innerHTML = `<p class="text-xs text-slate-500 italic text-center py-4">No fixtures generated yet. Click "Auto Fixtures" after adding 4 teams!</p>`;
         return;
       }
 
@@ -1461,12 +1665,14 @@
         const teamA = tournament.teams.find(t => t.id === fix.teamA) || { name: 'Team A' };
         const teamB = tournament.teams.find(t => t.id === fix.teamB) || { name: 'Team B' };
 
+        const isFinale = fix.id === 'match_7_finale';
+
         const card = document.createElement('div');
-        card.className = "bg-slate-950/60 p-3.5 rounded-2xl border border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
+        card.className = `p-3.5 rounded-2xl border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 ${isFinale ? 'bg-amber-500/10 border-amber-500/40' : 'bg-slate-950/60 border-slate-800'}`;
         card.innerHTML = `
           <div>
             <div class="flex items-center gap-2 mb-1">
-              <span class="text-xs font-bold text-amber-400">${fix.id.toUpperCase()}</span>
+              <span class="text-xs font-bold ${isFinale ? 'text-amber-300 font-black' : 'text-amber-400'}">${isFinale ? '🏆 GRAND FINALE (MATCH #7)' : fix.id.toUpperCase()}</span>
               <span class="text-[10px] px-2 py-0.5 rounded-full uppercase font-bold ${fix.status === 'LIVE' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 animate-pulse' : 'bg-slate-800 text-slate-400'}">${fix.status}</span>
             </div>
             <div class="text-sm font-extrabold text-white">
@@ -1589,7 +1795,7 @@
             id: `match_${count}`,
             teamA: tournament.teams[i].id,
             teamB: tournament.teams[j].id,
-            status: count === 1 ? 'UPCOMING' : 'UPCOMING',
+            status: 'UPCOMING',
             result: ''
           });
           count++;
@@ -1599,7 +1805,7 @@
       tournament.fixtures = newFixtures;
       saveStateToStorage();
       renderManager();
-      alert('Fixtures generated! Click "Toss & Start" on Match 1 when ready.');
+      alert(`Generated ${newFixtures.length} Round-Robin matches! The 7th FINALE fixture will unlock automatically after the 6 group matches complete.`);
     }
   </script>
 </body>
